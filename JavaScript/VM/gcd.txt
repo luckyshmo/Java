@@ -1,0 +1,12 @@
+input 100
+input 101
+set 0 102
+set false 103
+set 0 104
+while
+mod 100 101 104
+sub 102 101 100
+sub 102 104 101
+noteql 101 102 103
+endwhile
+output 100

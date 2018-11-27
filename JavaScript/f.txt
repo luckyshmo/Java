@@ -1,0 +1,9 @@
+This is the first line
+The second line not equal to the first line
+Line number three
+Example to search
+String
+String again
+One more string, not equal to the first string
+Example to search number two
+And the last but not least line

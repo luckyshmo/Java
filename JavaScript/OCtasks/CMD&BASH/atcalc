@@ -1,0 +1,15 @@
+#!/bin/bash
+#pgrep -lf cal
+if [ "$1" = "-?" ]
+then
+	echo 'atcalc'
+	echo 'kill process calculator'
+	echo 'key -r will reboot system'
+else
+	killall gnome-calculator
+	if [ "$1" = "-r" ]
+	then
+		echo reboot
+		shutdown -r now
+	fi
+fi

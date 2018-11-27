@@ -1,0 +1,50 @@
+#!/bin/bash
+#echo "$1"
+if [ "$1" = "-?" ]
+then
+	echo 'dircomp [1st dir] [2nd dir]'
+	echo 'Shows unique files for both catalogs'
+	echo
+else
+	echo 'First path:'
+	echo
+	for i in "$1"/*
+	do
+		i=${i#*//}
+		check=true
+		for j in "$2"/*
+		do
+			j=${j#*//}
+			if [ "$i" = "$j" ]
+			then
+				check=false
+				#echo 'collision'
+			fi
+		done
+		if [ "$check" = true ]
+		then
+  			echo "$i"
+		fi
+	done
+	echo
+	echo 'Second path:'
+	echo
+	for i in "$2"/*
+	do
+		i=${i#*//}
+		check=true
+		for j in "$1"/*
+		do
+			j=${j#*//}
+			if [ "$i" = "$j" ]
+			then
+				check=false
+				#echo 'collision'
+			fi
+		done
+		if [ "$check" = true ]
+		then
+  			echo "$i"
+		fi
+	done  
+fi

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+       GAME OF LIFE
+    </title>
+</head>
+<body>
+ 
+<canvas id="myCanvas" width="400" height="400" style="border:1px solid #d3d3d3;" onClick="shyolck()">
+Your browser does not support the HTML5 canvas tag.</canvas>
+ 
+<p><input type="button" value="init_life" onClick="init()"/>
+<input type="button" id="runLife" value="runLife" onClick="run()"/>
+<input type="button" id="stopLife" value="stopLife" onClick="stop()"/>
+</p>
+<script>
+function init(){
+    for(var i=0; i<field.length; i++){
+        for(var j=0; j<field.length; j++){
+            field[i][j] = Math.floor(2*Math.random());         
+            if(field[i][j] == 1){
+                ctx.fillStyle ="red";
+                ctx.fillRect(20*i,20*j,20,20);
+            }
+            else{
+                ctx.fillStyle ="white";
+                ctx.fillRect(20*i,20*j,20,20);
+            }
+        }
+    }
+}
+function new_generation(){
+	var c = 0;
+    for(var i=0; i<field.length; i++){
+        for(var j=0; j<field.length; j++){
+			if (field[i][j] == field1[i][j])
+				c++;
+			field1[i][j] = field[i][j]
+        }
+    }
+	if (c == fieldSize*fieldSize)
+	{
+		alert("END");
+		stop();
+	}
+	for(var i=0; i<field.length; i++){
+        for(var j=0; j<field.length; j++){
+			field[i][j] = aliveOrNot(i, j);
+			if(field[i][j] == 1){
+                ctx.fillStyle ="red";
+                ctx.fillRect(20*i,20*j,20,20);
+            }
+            else{
+                ctx.fillStyle ="white";
+                ctx.fillRect(20*i,20*j,20,20);
+            }
+        }
+    }
+}
+function aliveOrNot(i, j){
+	var counter = 0;
+	for (k = i-1; k <= i+1; k++)
+		for (l = j-1; l <= j+1; l++){
+			k1=k; l1=l;
+			if (k < 0) k1 = fieldSize - 1;
+			if (k > fieldSize-1) k1 = 0;
+			if (l < 0) l1 = fieldSize - 1;
+			if (l > fieldSize-1) l1 = 0;
+			if (field1[k1][l1] == 1 && !(k==i && l==j) )
+				counter++;
+		}
+	//alert(counter);
+	if (field1[i][j] == 1){
+		if (counter==3||counter==2)
+			return 1;
+		return 0;
+		}
+	else {
+		if (counter==3)
+			return 1;
+		return 0;
+	}
+}
+function run(){
+    document.getElementById("runLife").disabled = true;
+	document.getElementById("stopLife").disabled = false;
+    tm = setInterval(new_generation, 100);
+}
+function stop(){
+    clearInterval(tm);
+    document.getElementById("runLife").disabled = false;
+	 document.getElementById("stopLife").disabled = true;
+}
+function shyolck(){
+    alert(event.clientX+':'+event.clientY);
+}
+var fieldSize = 20;
+var field = new Array(fieldSize);
+var field1 = new Array(fieldSize);
+for(var i=0; i<field.length; i++){
+    field[i] = new Array(fieldSize);
+	field1[i] = new Array(fieldSize);
+}
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+ 
+ 
+</script>
+ 
+</body>
+</html>

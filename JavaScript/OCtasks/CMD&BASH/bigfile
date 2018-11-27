@@ -1,0 +1,22 @@
+#!/bin/bash
+#echo "$1"
+if [ "$1" = "-?" ]
+then
+	echo 'bigfile [directory]'
+	echo 'Shows name of biggest file in given directory'
+	echo
+else
+	bigest=-1
+	ans=""
+	for file in $1/* 
+	do
+		fs=$(stat -c%s $file)
+		if [ "$bigest" -lt "$fs" ]
+		then
+			bigest=$fs
+			ans=$file
+		fi
+	done
+	echo 'Biggest file is "'${ans##*/}'"'
+	echo 'Size is '$bigest' bytes'
+fi
